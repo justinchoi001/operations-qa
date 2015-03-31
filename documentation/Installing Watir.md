@@ -46,7 +46,7 @@ At the time of writing this article, I am currently on
 ```
 
 ##Installing Watir-Webdriver and Watir-Scroll
-Finally, it's time to install Watir-webdriver- which is actually a gem! To install this, type:
+Finally, it's time to install Watir-webdriver, which is actually a gem! To install this, type:
 ``` html
 gem install watir-webdriver
 ```
