@@ -4,7 +4,7 @@ This article assumes you've read through "What Is Watir." This guide will help y
 ##Installing Ruby
 The first step is installing Ruby. The steps to install Ruby will depend on which OS you are running on your machine, but it should be fairly simple to look up the appropriate steps on the Internet.
 ###Linux
-You should know what to do. Install Ruby via the Terminal using _apt-get_ or _yum_ or whatever command your package manager uses. To verify that Ruby has been installed properly, open up Terminal and type:
+Install Ruby via the Terminal using _apt-get_ or _yum_ or whatever command your package manager uses. To verify that Ruby has been installed properly, open up Terminal and type:
 ``` html
 ruby -v
 ```
