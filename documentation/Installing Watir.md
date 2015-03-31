@@ -44,3 +44,13 @@ At the time of writing this article, I am currently on
 ``` html
 2.4.6
 ```
+
+##Installing Watir-Webdriver and Watir-Scroll
+Finally, it's time to install Watir-webdriver- which is actually a gem! To install this, type:
+``` html
+gem install watir-webdriver
+```
+The Watir-webdriver gem contains some other libraries, so don't be alarmed when you see it the install process listing other tools. We also need to install Watir-scroll, which is another useful gem to help us with our scripts. To install this, type:
+``` html
+gem install watir-scroll
+```
