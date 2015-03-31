@@ -64,6 +64,7 @@ gem install watir-scroll
 ```
 
 ##Installing Browser Drivers
+For Chrome and Firefox, the drivers should already be installed. You can always write tests that use specific browsers, but you may not be able to open certain browsers, depending on your OS (IE and Safari are proprietary browsers). If you need any help installing drivers for other browsers (e.g. Chromium, Opera, etc.), you can look visit this [quick setup guide](https://github.com/watir/watir/wiki/Quick-Start) and choose your OS to properly install the right drivers.
 
 ##Success
 If everything was installed properly, you've completed this guide and should be ready to start writing test scripts. Congratulations, buddy.
