@@ -1,11 +1,11 @@
 ##Table of Contents
 * [Getting Started](#Getting Started)
-* [Quick Tip](#Quick Tip)
+* [Using IRB](#Using IRB)
 
 ##Getting Started
 This article assumes that you've read through the "What is Watir" and "Installation and Setup" guides and that you are comfortable writing in Ruby. This guide will not to teach you how to program in Ruby, but will provide a basic tutorial of popular commands in Watir.
 
-##Quick Tip
+##Using IRB
 Don't forget to use your best friend in Ruby: IRB. IRB stands for _interactive Ruby_ and it's a great tool to interactively execute Ruby commands/expressions from your terminal. To start it up, simply open a terminal or command prompt window and type:
 ``` html
 irb
