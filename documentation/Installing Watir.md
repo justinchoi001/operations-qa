@@ -4,7 +4,7 @@
 * [Installing RubyGems](#Installing RubyGems)
 * [Installing Watir-Webdriver and Watir-Scroll](#Installing Watir-Webdriver and Watir-Scroll)
 * [Installing Browser Drivers](#Installing Browser Drivers)
-* [Success](#Success)
+* [Success](##Success)
 
 ##Getting Started
 This article assumes you've read through "What Is Watir." This guide will help you set up the necessary tools to start writing and running scripts using Watir.
