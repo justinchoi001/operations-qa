@@ -33,7 +33,7 @@ require "watir-scroll"
 Having these at the top of each of your scripts will allow you to run commands from the Watir-webdriver and Watir-scroll API. 
 
 ##Browser
-If you're familiar with using selenium-webdriver, then some of these commands might look familiar to you. To start a new driver session, here's are some examples (using "browser" as our variable name):
+If you've used selenium-webdriver before, then some of these commands might look familiar to you. To start a new driver session, here are some examples (using "browser" as the variable name):
 ``` html
 browser = Watir::Browser.new :firefox
 browser = Watir::Browser.new :chrome
