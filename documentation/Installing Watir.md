@@ -1,3 +1,11 @@
+##Table of Contents
+* [Getting Started](#Getting Started)
+* [Installing Ruby](#Installing Ruby)
+* [Installing RubyGems](#Installing RubyGems)
+* [Installing Watir-Webdriver and Watir-Scroll](#Installing Watir-Webdriver and Watir-Scroll)
+* [Installing Browser Drivers](#Installing Browser Drivers)
+* [Success](#Success)
+
 ##Getting Started
 This article assumes you've read through "What Is Watir." This guide will help you set up the necessary tools to start writing and running scripts using Watir.
 
@@ -54,3 +62,8 @@ The Watir-webdriver gem contains some other libraries, so don't be alarmed when 
 ``` html
 gem install watir-scroll
 ```
+
+##Installing Browser Drivers
+
+##Success
+If everything was installed properly, you've completed this guide and should be ready to start writing test scripts. Congratulations, buddy.
