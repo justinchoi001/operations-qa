@@ -1,6 +1,6 @@
 ##Table of Contents
 * [Getting Started](#Getting Started)
-* [Quick Tip](#Quick Tip: IRB)
+* [Quick Tip](#Quick Tip IRB)
 
 ##Getting Started
 This article assumes that you've read through the "What is Watir" and "Installation and Setup" guides and that you are comfortable writing in Ruby. This guide will not to teach you how to program in Ruby, but will provide a basic tutorial of popular commands in Watir.
