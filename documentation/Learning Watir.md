@@ -53,3 +53,4 @@ To close the browser:
 ``` html
 browser.close
 ```
+Remember to visit the API to learn more about the [Browser](http://www.rubydoc.info/gems/watir-webdriver/Watir/Browser) class. 
