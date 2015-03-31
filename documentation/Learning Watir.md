@@ -4,7 +4,7 @@
 * [Using IRB](#Using IRB)
 * [Loading Libraries](#Loading Libraries)
 * [Browser](#Browser)
-* [](#)
+* [Locating Elements](#Locating Elements)
 
 ##Getting Started
 This article assumes that you've read through the "What is Watir" and "Installation and Setup" guides and that you are comfortable writing in Ruby. This guide will not to teach you how to program in Ruby, but will provide a basic tutorial of popular commands in Watir.
@@ -53,4 +53,21 @@ To close the browser:
 ``` html
 browser.close
 ```
-Remember to visit the Watir-webdriver API to learn more about the [Browser](http://www.rubydoc.info/gems/watir-webdriver/Watir/Browser) class. 
+Remember to visit the Watir-webdriver API to learn more about the [Browser](http://www.rubydoc.info/gems/watir-webdriver/Watir/Browser) class.
+
+##Locating Elements
+Time to consider the age-old philosophical debate regarding locating elements on a page: CSS vs XPath. Maybe you've heard both sides and don't know enough to have an opinion, or maybe you're only comfortable with one strategy, or maybe you don't care. The good news is that with Watir, it doesn't matter; it's really easy to interchange the way we locate elements. To quote the famous Kevin Hart, "Do you, boo boo. _Do you_, boo boo!"
+
+Let's look at an example with the _TextField_ class. Here are some different ways to locate a _TextField_ on a page:
+``` html
+browser.text_field(:class => "class")
+browser.text_field(:css => "css")
+browser.text_field(:id => "id")
+browser.text_field(:index => "index")
+browser.text_field(:name => "name")
+browser.text_field(:text => "text")
+browser.text_field(:title => "title")
+browser.text_field(:value => "value")
+browser.text_field(:xpath => "xpath")
+```
+This is a good opportunity to examine the benefits to using Watir-webdriver and not just bare-bones selenium-webdriver. Watir-webdriver can do all of these, but selenium-webdriver can't do _:text_, _:title_, and _:value_. These are really useful, especially _:text_ because that will just search the page for a _TextField_ with that text. Watir-webdriver makes it super easy to locate elements. For more information about how to locate specific elements, visit this [helpful wiki by GitHub user cheezy](https://github.com/cheezy/page-object/wiki/Elements). 
