@@ -50,7 +50,7 @@ Finally, it's time to install Watir-webdriver, which is actually a gem! To insta
 ``` html
 gem install watir-webdriver
 ```
-The Watir-webdriver gem contains some other libraries, so don't be alarmed when you see it the install process listing other tools. We also need to install Watir-scroll, which is another useful gem to help us with our scripts. To install this, type:
+The Watir-webdriver gem contains some other libraries, so don't be alarmed when you see the install process listing other tools. We also need to install Watir-scroll, which is another useful gem to help us with our scripts. To install this, type:
 ``` html
 gem install watir-scroll
 ```
