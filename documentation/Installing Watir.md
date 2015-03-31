@@ -31,3 +31,16 @@ ruby 2.2.1p85 (2015-02-26 revision 49769) [x86_64-darwin14]
 ```
 
 ##Installing RubyGems
+RubyGems is Ruby's package manager and it's used to install specific Ruby programs/libraries (called _gems_). Your installation of Ruby comes with RubyGems, so you can check your version to make sure it's installed properly. 
+``` html
+gem -v
+```
+To update RubyGems, you can type:
+``` html
+gem update --system
+```
+###Notes
+At the time of writing this article, I am currently on
+``` html
+2.4.6
+```
