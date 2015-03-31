@@ -45,7 +45,7 @@ To navigate to a URL:
 ``` html
 browser.goto("http://www.liferay.com")
 ```
-To refresh the browser:
+To refresh the current page in the browser:
 ``` html
 browser.refresh
 ```
