@@ -73,7 +73,7 @@ browser.text_field(:title => "title")
 browser.text_field(:value => "value")
 browser.text_field(:xpath => "xpath")
 ```
-This is a good opportunity to examine the benefits to using Watir-webdriver and not just bare-bones selenium-webdriver. Watir-webdriver can do all of these, but selenium-webdriver can't do _:text_, _:title_, and _:value_. These are really useful, especially _:text_ because that will just search the page for a _TextField_ with that text. Watir-webdriver makes it super easy to locate elements. For more information about how to locate specific elements, visit this [helpful wiki by GitHub user cheezy](https://github.com/cheezy/page-object/wiki/Elements).
+This is a good opportunity to examine the benefits to using Watir-webdriver and not just bare-bones selenium-webdriver. Watir-webdriver can do all of these, but selenium-webdriver can't do _:text_, _:title_, and _:value_. These are really useful, especially _:text_ because that will locate a _text_field_ on the page with that text. Watir-webdriver makes it super easy to locate elements. For more information about how to locate specific elements, visit this [helpful wiki by GitHub user cheezy](https://github.com/cheezy/page-object/wiki/Elements).
 
 As you can see, it's easy to locate and identify elements using Watir-webdriver- _if_ you know what you're looking for. But let's face it, it just wouldn't be UAT if it were easy to locate and manipulate elements on a web page. You can see the text or button, but you just can't seem to grab it in your script so you can click on it. Here are a few tips that you can read up on that might save you same time and effort in the long run.
 ``` html
