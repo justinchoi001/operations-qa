@@ -106,7 +106,7 @@ browser.scroll.to :bottom   # scrolls to the bottom of the page
 browser.scroll.to [10, 10]  # scrolls to coordinates x and y
 browser.scroll.to button    # scrolls to element
 ```
-_*taken from [p0deje's User Guide](https://github.com/p0deje/watir-scroll)_
+_*taken from [p0deje's Watir-Scroll User Guide](https://github.com/p0deje/watir-scroll)_
 
 ##Resources
 [Awetest Watir Cheat Sheet](https://awetest.zendesk.com/hc/en-us/articles/201883796-Watir-Webdriver-Cheatsheet)
@@ -117,4 +117,4 @@ _*taken from [p0deje's User Guide](https://github.com/p0deje/watir-scroll)_
 
 [Official Watir Cheat Sheet](https://github.com/watir/watir/wiki/Cheat-Sheet)
 
-[p0deje's Watir-Scroll User Guide](https://github.com/p0deje/watir-scroll)_
+[p0deje's Watir-Scroll User Guide](https://github.com/p0deje/watir-scroll)
