@@ -85,10 +85,16 @@ browser.div(:id => "foo").inner_html
 ```
 There are two things to note with this tip. If you haven't already looked at the [API](http://www.rubydoc.info/gems/watir-webdriver) or at [cheezy's Guide to Watir Elements](https://github.com/cheezy/page-object/wiki/Elements), you'll realize that you can locate elements on the page using _div_ or _span_ or even just the general _element_. Why is this important? Sometimes the button you want to click on isn't really a button- maybe it's just tricky javascript/css overlay to hide the true link or whatever underneath it. That means _browser.button_ won't work because Watir doesn't recognize it as a button, so you'll need to find the true element another way: using _div_ or _span_ or _element_. The second tip follows right up after that. For objects of the _Element_ class in Watir, you can use _.inner_html_ to grab the whole HTML code of the element. From here you can sleuth around the surrounding code or delve deeper to finally locate and grab the true element you need. Remember, the goal is to find a robust way of locating elements so that your scripts don't break due to element identifier volatility. 
 
-Lastly, you can flash elements on a page using Watir (literally, with a quick red flash around the element on the screen) to make sure you're grabbing the right element:
+You can flash elements on a page using Watir (literally, with a quick red flash around the element on the screen) to make sure you're grabbing the right element:
 ``` html
 browser.div(:id => "foo").flash
 ```
+
+As a last note, if you really want to make your locator robust, Watir-webdriver allows you add multiple attributes. You can write something like:
+``` html
+browser.div(:class => "class", :text => "foo", :name => "name")
+```
+You can use this to really drill down on the desired element, but I'd be careful because the potential maintenance for these kinds of calls is high.
 
 ##Waiting
 Scripts can run quickly- sometimes quicker than you want. This means that your Watir script might be moving down the lines of code before the web page is fully loaded, and that can be a problem because certain elements might take a long time to show up. A simple solution for this is to tell your script to wait until the page is loaded- or more importantly, until the desired element is _visible_ and _enabled_- before continuing. Selenium is fully capable of doing this too, but here's the way to _wait_ using Watir-webdriver:
