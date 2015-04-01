@@ -6,6 +6,7 @@
 * [Browser](#Browser)
 * [Locating Elements](#Locating Elements)
 * [Waiting](#Waiting)
+* [Scrolling](#Scrolling)
 * [Resources](#Resources)
 
 ##Getting Started
@@ -96,6 +97,17 @@ Watir::Wait.until { browser.button(:value => "foo").visible? }
 ```
 The above command will tell Watir to wait until the button "foo" is visible. There are other qualifiers you can use as well, depending on the type of object (e.g. _.enabled?_, _.exists?_, _.focused?_, _.present?_).
 
+##Scrolling
+Watir-scroll is a really great scrolling API built for Watir-webdriver. We'll need some scrolling API because one of Selenium's limitations is its inconsistent ability to find and manipulate web elements that are not in the browser's view. So even though the button or link or text exists and is visible and clickable, Selenium won't be able to do anything to it because it's not located on the screen. An easy solution for this issue is to scroll the desired web element into view using some scrolling API. Here's how we can scroll using Watir-scroll:
+``` html
+browser.scroll.to :top      # scrolls to the top of the page
+browser.scroll.to :center   # scrolls to the center of the page
+browser.scroll.to :bottom   # scrolls to the bottom of the page
+browser.scroll.to [10, 10]  # scrolls to coordinates x and y
+browser.scroll.to button    # scrolls to element
+```
+_*taken from [p0deje's User Guide](https://github.com/p0deje/watir-scroll)_
+
 ##Resources
 [Awetest Watir Cheat Sheet](https://awetest.zendesk.com/hc/en-us/articles/201883796-Watir-Webdriver-Cheatsheet)
 
@@ -104,3 +116,5 @@ The above command will tell Watir to wait until the button "foo" is visible. The
 [Official API](http://www.rubydoc.info/gems/watir-webdriver)
 
 [Official Watir Cheat Sheet](https://github.com/watir/watir/wiki/Cheat-Sheet)
+
+[p0deje's Watir-Scroll User Guide](https://github.com/p0deje/watir-scroll)_
