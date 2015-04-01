@@ -61,7 +61,7 @@ Remember to visit the Watir-webdriver API to learn more about the [Browser](http
 ##Locating Elements
 Time to consider the age-old philosophical debate regarding locating elements on a page: CSS vs XPath. Maybe you've heard both sides and don't know enough to have an opinion, or maybe you're only comfortable with one strategy, or maybe you don't care. The good news is that with Watir, it doesn't matter; it's really easy to interchange the way we locate elements. To quote the famous Kevin Hart, "Do you, boo boo. _Do you_, boo boo!"
 
-Let's look at an example with the _TextField_ class. Here are some different ways to locate a _TextField_ on a page:
+Let's look at an example with the _TextField_ class. Here are some different ways to locate a _text_field_ on a page:
 ``` html
 browser.text_field(:class => "class")
 browser.text_field(:css => "css")
