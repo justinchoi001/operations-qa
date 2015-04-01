@@ -5,6 +5,7 @@
 * [Loading Libraries](#Loading Libraries)
 * [Browser](#Browser)
 * [Locating Elements](#Locating Elements)
+* [Waiting](#Waiting)
 * [Resources](#Resources)
 
 ##Getting Started
@@ -87,6 +88,13 @@ Lastly, you can flash elements on a page using Watir (literally, with a quick re
 ``` html
 browser.div(:id => "foo").flash
 ```
+
+##Waiting
+Scripts can run quickly- sometimes quicker than you want. This means that your Watir script might be moving down the lines of code before the web page is fully loaded, and that can be a problem because certain elements might take a long time to show up. A simple solution for this is to tell your script to wait until the page is loaded- or more importantly, until the desired element is _visible_ and _enabled_- before continuing. Selenium is fully capable of doing this too, but here's the way to _wait_ using Watir-webdriver:
+``` html
+Watir::Wait.until { browser.button(:value => "foo").visible? }
+```
+The above command will tell Watir to wait until the button "foo" is visible. There are other qualifiers you can use as well, depending on the type of object (e.g. _.enabled?_, _.exists?_, _.focused?_, _.present?_).
 
 ##Resources
 [Awetest Watir Cheat Sheet](https://awetest.zendesk.com/hc/en-us/articles/201883796-Watir-Webdriver-Cheatsheet)
