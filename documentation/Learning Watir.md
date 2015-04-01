@@ -78,6 +78,6 @@ browser.text.include? "foo"
 ```
 You can use this in IRB to see if Watir-webdriver can find the string "foo" on the page. It's a fairly simple _find_ method and is similar to the _.exists?_ method you can run on web elements using Watir, and will return true or false.
 ``` html
-browser.div(:id => 'foo').inner_html
+browser.div(:id => "foo").inner_html
 ```
 There are two things to note with this tip. If you haven't already looked at the [API](http://www.rubydoc.info/gems/watir-webdriver) or at [cheezy's guide to Watir elements](https://github.com/cheezy/page-object/wiki/Elements), you'll realize that you can locate elements on the page using _div_ or _span_ or even just the general _element_. Why is this important? Sometimes the button you want to click on isn't really a button- maybe it's just tricky javascript/css overlay to hide the true link or whatever underneath it. That means _browser.button_ won't work because Watir doesn't recognize it as a button, so you'll need to find the true element another way: using _div_ or _span_ or _element_. The second tip follows right up after that. For objects of the _Element_ class in Watir, you can use _.inner_html_ to grab the whole HTML code of the element. From here you can sleuth around the surrounding code or delve deeper to finally locate and grab the true element you need. Remember, the goal is to find a robust way of locating elements so that your scripts don't break due to element identifier volatility. 
