@@ -5,6 +5,7 @@
 * [Installing Watir-Webdriver and Watir-Scroll](#Installing Watir-Webdriver and Watir-Scroll)
 * [Installing Browser Drivers](#Installing Browser Drivers)
 * [Success](#Success)
+* [Resources](#Resources)
 
 ##Getting Started
 This article assumes you've read through "What Is Watir." This guide will help you set up the necessary tools to start writing and running scripts using Watir.
@@ -68,3 +69,6 @@ You can always write tests that use specific browsers, but you may not be able t
 
 ##Success
 If everything was installed properly, you've completed this guide and should be ready to start writing test scripts. Congratulations, buddy.
+
+##Resources
+[Watir Quick Start](https://github.com/watir/watir/wiki/Quick-Start)
