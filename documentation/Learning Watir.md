@@ -5,6 +5,7 @@
 * [Loading Libraries](#Loading Libraries)
 * [Browser](#Browser)
 * [Locating Elements](#Locating Elements)
+* [Resources](#Resources)
 
 ##Getting Started
 This article assumes that you've read through the "What is Watir" and "Installation and Setup" guides and that you are comfortable writing in Ruby. This guide will not to teach you how to program in Ruby, but will provide a basic tutorial of popular commands in Watir.
@@ -86,3 +87,9 @@ Lastly, you can flash elements on a page using Watir (literally, with a quick re
 ``` html
 browser.div(:id => "foo").flash
 ```
+
+##Resources
+[Awetest Watir Cheat Sheet](https://awetest.zendesk.com/hc/en-us/articles/201883796-Watir-Webdriver-Cheatsheet)
+[cheezy's guide to Watir elements](https://github.com/cheezy/page-object/wiki/Elements)
+[Official API](http://www.rubydoc.info/gems/watir-webdriver)
+[Official Watir Cheat Sheet](https://github.com/watir/watir/wiki/Cheat-Sheet)
