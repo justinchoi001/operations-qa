@@ -90,6 +90,9 @@ browser.div(:id => "foo").flash
 
 ##Resources
 [Awetest Watir Cheat Sheet](https://awetest.zendesk.com/hc/en-us/articles/201883796-Watir-Webdriver-Cheatsheet)
+
 [cheezy's guide to Watir elements](https://github.com/cheezy/page-object/wiki/Elements)
+
 [Official API](http://www.rubydoc.info/gems/watir-webdriver)
+
 [Official Watir Cheat Sheet](https://github.com/watir/watir/wiki/Cheat-Sheet)
