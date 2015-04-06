@@ -142,9 +142,15 @@ Watir::Wait.until { browser.button(:text => "Continue Without Adding", :index =>
 browser.button(:text => "Continue Without Adding", :index => 1).click
 puts "Successfully selected Continue Without Adding"
 
-# click on create ticket
+# click on confirm
 puts "\n"
+puts "Attempting to select Confirm..."
 Watir::Wait.until { browser.button(:text => "Confirm").visible? }
 browser.button(:text => "Confirm").click
+puts "Successfully selected Confirm"
 
+# select document library component
+puts "\n"
+puts "Attempting to select Document Library component..."
 browser.select_list(:name => "_2_WAR_osbportlet_component").select_value("26004")
+puts "Successfully selected Document Library component"
