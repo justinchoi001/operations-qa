@@ -154,3 +154,21 @@ puts "\n"
 puts "Attempting to select Document Library component..."
 browser.select_list(:name => "_2_WAR_osbportlet_component").select_value("26004")
 puts "Successfully selected Document Library component"
+
+# fill out ticket details
+puts "\n"
+puts "Attempting to fill out the ticket details..."
+browser.text_field(:name, "_2_WAR_osbportlet_subject").set("Customer Basic Test")
+browser.select_list(:name => "_2_WAR_osbportlet_systemStatus").select_value("1")
+browser.textarea(:name, "_2_WAR_osbportlet_description").set("This is a customer test")browser.select_list(:name => "_2_WAR_osbportlet_envLFR").select_value("20080")
+# wait
+browser.select_list(:name => "_2_WAR_osbportlet_envAS").option(:value => "27046").wait_until_present
+browser.select_list(:name => "_2_WAR_osbportlet_envAS").select_value("27046")
+browser.select_list(:name => "_2_WAR_osbportlet_envDB").select_value("28019")
+browser.select_list(:name => "_2_WAR_osbportlet_envOS").select_value("30029")
+browser.select_list(:name => "_2_WAR_osbportlet_envJVM").select_value("29002")
+browser.select_list(:name => "_2_WAR_osbportlet_envBrowser").select_value("37001")
+puts "Successfully filled out the ticket details"
+
+# upload portal-ext
+puts "\n"
