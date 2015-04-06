@@ -66,3 +66,85 @@ startTime = Time.now
 # go to LESA home page
 puts "Attempting to navigate to LESA UAT..."
 browser.goto("https://www-uat.liferay.com/group/customer/support/-/support/ticket")
+
+# wait for page load
+Watir::Wait.until { browser.text.include? 'Please append ".broken" to your email address to login. (e.g. test@liferay.com.broken)' }
+
+# access login elements by element name
+puts "Attempting to log into LESA UAT..."
+browser.text_field(:name, "_58_login").set("margaret_wong@abacus.com.sg.broken")
+browser.text_field(:name, "_58_password").set("test")
+browser.button(:value, "Sign In").click
+
+# wait for page load
+Watir::Wait.until { browser.div(:text => "My Open Tickets").exists? }
+puts "Successfully logged into LESA UAT"
+puts "Successfully navigated to LESA UAT"
+
+# check if my open tickets count and results match
+myOpenTickets = browser.div(:text => "My Open Tickets")
+myOpenTickets.fire_event :click
+searchResultsHTML = browser.div(:class => "search-results").inner_html
+searchResultsCount = searchResultsHTML[/#{resultsTokenStart}(.*?)#{resultsTokenEnd}/m, 1]
+myOpenTicketsHTML = myOpenTickets.parent.inner_html
+myOpenTicketsCount = myOpenTicketsHTML[/#{ticketsTokenStart}(.*?)#{ticketsTokenEnd}/m, 1]
+puts "\n"
+if myOpenTicketsCount == searchResultsCount
+	puts "Assert that the My Open Tickets count [" + myOpenTicketsCount + "] matches number of search results [" + searchResultsCount + "]: PASS"
+else
+	puts "Assert that the My Open Tickets count [" + myOpenTicketsCount + "] matches number of search results [" + searchResultsCount + "]: FAIL"
+end
+
+# check if need response count and results match
+needResponse = browser.div(:text => "Need Response")
+needResponse.fire_event :click
+searchResultsHTML = browser.div(:class => "search-results").inner_html
+searchResultsCount = searchResultsHTML[/#{resultsTokenStart}(.*?)#{resultsTokenEnd}/m, 1]
+needResponseHTML = needResponse.parent.inner_html
+needResponseCount = needResponseHTML[/#{ticketsTokenStart}(.*?)#{ticketsTokenEnd}/m, 1]
+puts "\n"
+if needResponseCount == searchResultsCount
+	puts "Assert that the Need Response count [" + needResponseCount + "] matches number of search results [" + searchResultsCount + "]: PASS"
+else
+	puts "Assert that the Need Response count [" + needResponseCount + "] matches number of search results [" + searchResultsCount + "]: FAIL"
+end
+
+# check if in progress count and results match
+feedbackWaiting = browser.div(:text => "Feedback Waiting")
+feedbackWaiting.fire_event :click
+searchResultsHTML = browser.div(:class => "search-results").inner_html
+searchResultsCount = searchResultsHTML[/#{resultsTokenStart}(.*?)#{resultsTokenEnd}/m, 1]
+feedbackWaitingHTML = feedbackWaiting.parent.inner_html
+feedbackWaitingCount = feedbackWaitingHTML[/#{ticketsTokenStart}(.*?)#{ticketsTokenEnd}/m, 1]
+puts "\n"
+if feedbackWaitingCount == searchResultsCount
+	puts "Assert that the Feedback Waiting count [" + feedbackWaitingCount + "] matches number of search results [" + searchResultsCount + "]: PASS"
+else
+	puts "Assert that the Feedback Waiting count [" + feedbackWaitingCount + "] matches number of search results [" + searchResultsCount + "]: FAIL"
+end
+
+# click on the "+" symbol; want to click on "new ticket"
+puts "\n"
+puts "Creating a new ticket..."
+browser.span(:text => "+").fire_event :click
+
+# click on portal production
+puts "\n"
+puts "Attempting to select Portal Production..."
+Watir::Wait.until { browser.link(:text => "Portal Production").visible? }
+browser.element(:text => "Portal Production").click
+puts "Successfully selected Portal Production"
+
+# click on continue without adding
+puts "\n"
+puts "Attempting to select Continue Without Adding..."
+Watir::Wait.until { browser.button(:text => "Continue Without Adding", :index => 1).visible? }
+browser.button(:text => "Continue Without Adding", :index => 1).click
+puts "Successfully selected Continue Without Adding"
+
+# click on create ticket
+puts "\n"
+Watir::Wait.until { browser.button(:text => "Confirm").visible? }
+browser.button(:text => "Confirm").click
+
+browser.select_list(:name => "_2_WAR_osbportlet_component").select_value("26004")
