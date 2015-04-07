@@ -44,7 +44,7 @@ browser.button(:value, "Sign In").click
 
 # wait for page load
 Watir::Wait.until { browser.div(:text => "My Open Tickets").exists? }
-puts "Assert that the user can log in successfully: PASS"
+puts "Assert that the user can access LESA: PASS"
 
 # check if my open tickets count and results match
 myOpenTickets = browser.div(:text => "My Open Tickets")
