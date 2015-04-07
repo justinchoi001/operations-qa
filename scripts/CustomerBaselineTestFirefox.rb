@@ -301,6 +301,7 @@ else
 end
 
 # click for permalink
+puts "\n"
 permalink = browser.element(:id => "_2_WAR_osbportlet_ticketPermalink").value
 puts "Permalink: " + permalink
 
