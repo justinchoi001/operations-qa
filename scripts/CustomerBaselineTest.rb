@@ -160,7 +160,8 @@ puts "\n"
 puts "Attempting to fill out the ticket details..."
 browser.text_field(:name, "_2_WAR_osbportlet_subject").set("Customer Basic Test")
 browser.select_list(:name => "_2_WAR_osbportlet_systemStatus").select_value("1")
-browser.textarea(:name, "_2_WAR_osbportlet_description").set("This is a customer test")browser.select_list(:name => "_2_WAR_osbportlet_envLFR").select_value("20080")
+browser.textarea(:name, "_2_WAR_osbportlet_description").set("This is a customer test")
+browser.select_list(:name => "_2_WAR_osbportlet_envLFR").select_value("20080")
 # wait
 browser.select_list(:name => "_2_WAR_osbportlet_envAS").option(:value => "27046").wait_until_present
 browser.select_list(:name => "_2_WAR_osbportlet_envAS").select_value("27046")
