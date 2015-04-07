@@ -4,50 +4,17 @@ require "watir-webdriver"
 require "watir-scroll"
 
 # constants
-portalExt = "/Users/gcliferay/test.txt"
-patchLevel = "/Users/gcliferay/patch.txt"
-pictureAttachment = "/Users/gcliferay/test.png"
+repo = File.expand_path("..", File.dirname(__FILE__))
+portalExt = repo + "/resources/test-portal-ext.txt"
+patchInfo = repo + "/resources/test-patch-info.txt"
+pictureAttachment = repo + "/resources/test-image.png"
 resultsTokenStart = "Showing "
-resultsTokenEnd = " results."
+resultsTokenEnd = " result"
 ticketsTokenStart = "<div class=\"txt-h1 txt-b\"> "
 ticketsTokenEnd = " </div>"
 
-# ask user to select browser
-puts "Which browser would you like to run this test on?"
-puts "\t Press ENTER to use Chrome [Default]"
-puts "\t ENTER 2 to use Firefox"
-# puts "\t ENTER 3 to use Safari"
-# puts "\t ENTER 4 to use IE"
-STDOUT.flush
-browserType = gets.chomp
-
 # open new browser to log into UA
-if browserType == "1" || browserType == ""
-	puts "Selected: Chrome \n \n"
-	puts "Attempting to open Chrome..."
-	browser = Watir::Browser.new :chrome
-	puts "Successfully opened Chrome"
-elsif browserType == "2"
-	puts "Selected: Firefox \n \n"
-	puts "Attempting to open Firefox..."
-	browser = Watir::Browser.new :firefox
-	puts "Successfully opened Firefox"
-# elsif browserType == "3"
-# 	puts "Selected: Safari \n \n"
-# 	puts "Attempting to open Safari..."
-# 	browser = Watir::Browser.new :safari
-# 	puts "Successfully opened Safari"
-# elsif browserType == "4"
-# 	puts "Selected: IE \n \n"
-# 	puts "Attempting to open IE..."
-# 	browser = Watir::Browser.new :ie
-# 	puts "Successfully opened IE"
-else
-	puts "Invalid selection; using Chrome \n \n"
-	puts "Attempting to open Chrome..."
-	browser = Watir::Browser.new :chrome
-	puts "Successfully opened Chrome"
-end
+browser = Watir::Browser.new :firefox
 
 # ask user to begin test
 puts "\n"
@@ -64,22 +31,19 @@ end
 startTime = Time.now
 
 # go to LESA home page
-puts "Attempting to navigate to LESA UAT..."
 browser.goto("https://www-uat.liferay.com/group/customer/support/-/support/ticket")
 
 # wait for page load
 Watir::Wait.until { browser.text.include? 'Please append ".broken" to your email address to login. (e.g. test@liferay.com.broken)' }
 
 # access login elements by element name
-puts "Attempting to log into LESA UAT..."
 browser.text_field(:name, "_58_login").set("gbyrne@calcas.com.broken")
 browser.text_field(:name, "_58_password").set("test")
 browser.button(:value, "Sign In").click
 
 # wait for page load
 Watir::Wait.until { browser.div(:text => "My Open Tickets").exists? }
-puts "Successfully logged into LESA UAT"
-puts "Successfully navigated to LESA UAT"
+puts "Assert that the user can log in successfully: PASS"
 
 # check if my open tickets count and results match
 myOpenTickets = browser.div(:text => "My Open Tickets")
@@ -125,43 +89,42 @@ end
 
 # click on the "+" symbol; want to click on "new ticket"
 puts "\n"
-puts "Creating a new ticket..."
 browser.span(:text => "+").fire_event :click
+puts "Assert that the New Ticket button works: PASS"
 
 # select california casualty as account
 puts "\n"
-puts "Attempting to select California Casualty as Account..."
 Watir::Wait.until { browser.select_list(:name => "_2_WAR_osbportlet_accountEntryId").exists? }
 browser.select_list(:name => "_2_WAR_osbportlet_accountEntryId").select_value("8153767")
-puts "Successfully selected Account"
+puts "Assert that California Casualty is selected: PASS"
 
 # click on portal production
 puts "\n"
-puts "Attempting to select Portal Production..."
-Watir::Wait.until { browser.link(:text => "Portal Production").visible? }
-browser.link(:text => "Portal Production").fire_event :click
-puts "Successfully selected Portal Production"
+Watir::Wait.until { browser.element(:text => "Portal Production").visible? }
+browser.element(:text => "Portal Production").click
+puts "Assert that Portal Production is selected: PASS"
 
 # click on continue without adding
 puts "\n"
-puts "Attempting to select Continue Without Adding..."
-Watir::Wait.until { browser.button(:value => "Continue Without Adding").visible? }
-browser.button(:value => "Continue Without Adding").fire_event :click
-puts "Successfully selected Continue Without Adding"
+Watir::Wait.until { browser.button(:text => "Continue Without Adding", :index => 1).visible? }
+browser.button(:text => "Continue Without Adding", :index => 1).click
+puts "Assert that Continue Without Adding is selected: PASS"
 
-# click on create ticket
+# click on confirm
 puts "\n"
-puts "Attempting to select Create Ticket..."
-Watir::Wait.until { browser.button(:value => "Create Ticket").visible? }
-browser.button(:value => "Create Ticket").fire_event :click
-puts "Successfully selected Create Ticket"
+Watir::Wait.until { browser.button(:text => "Confirm").visible? }
+browser.button(:text => "Confirm").click
+puts "Assert that Confirm is selected: PASS"
 
-# set ticket details
+# select document library component
 puts "\n"
-puts "Attempting to fill out the ticket details..."
-Watir::Wait.until { browser.text_field(:name, "_2_WAR_osbportlet_subject").exists? }
-browser.text_field(:name, "_2_WAR_osbportlet_subject").set("Customer to Partner Test")
+Watir::Wait.until { browser.select_list(:name => "_2_WAR_osbportlet_component").visible? }
 browser.select_list(:name => "_2_WAR_osbportlet_component").select_value("26004")
+puts "Assert that the Document Library compontent is selected: PASS"
+
+# fill out ticket details
+puts "\n"
+browser.text_field(:name, "_2_WAR_osbportlet_subject").set("Customer Basic Test")
 browser.select_list(:name => "_2_WAR_osbportlet_systemStatus").select_value("1")
 browser.textarea(:name, "_2_WAR_osbportlet_description").set("This is a customer test")
 browser.select_list(:name => "_2_WAR_osbportlet_envLFR").select_value("20080")
@@ -172,69 +135,64 @@ browser.select_list(:name => "_2_WAR_osbportlet_envDB").select_value("28019")
 browser.select_list(:name => "_2_WAR_osbportlet_envOS").select_value("30029")
 browser.select_list(:name => "_2_WAR_osbportlet_envJVM").select_value("29002")
 browser.select_list(:name => "_2_WAR_osbportlet_envBrowser").select_value("37001")
-puts "Successfully filled out the ticket details"
+puts "Assert that the ticket details are completed: PASS"
 
 # upload portal-ext
 puts "\n"
 unless File.exists? portalExt
-	puts "Assert that the local patch level file exists: FAIL"
+	puts "Assert that the local portal-ext file exists: FAIL"
 	browser.close
 	puts "\n"
-	abort("Invalid selection; aborted testing")
+	abort("File: " + portalExt + "does not exist; aborted testing")
 end
-puts "Assert that the local patch level file exists: PASS"
+puts "Assert that the local portal-ext file exists: PASS"
 puts "\n"
-puts "Attempting to upload portal-ext file..."
 browser.file_field(:name => "_2_WAR_osbportlet_portal-ext").set portalExt
-puts "Successfully uploaded portal-ext file"
+puts "Assert that the local portal-ext file is uploaded: PASS"
 
-# upload patch level
+# upload patch-info
 puts "\n"
-unless File.exists? patchLevel
-	puts "Assert that the local patch level file exists: FAIL"
+unless File.exists? patchInfo
+	puts "Assert that the local patch-info file exists: FAIL"
 	browser.close
 	puts "\n"
-	abort("Invalid selection; aborted testing")
+	abort("File: " + patchInfo + "does not exist; aborted testing")
 end
-puts "Assert that the local patch level file exists: PASS"
+puts "Assert that the local patch-info file exists: PASS"
 puts "\n"
-puts "Attempting to upload patch level file..."
-browser.file_field(:name => "_2_WAR_osbportlet_patch-level").set patchLevel
-puts "Successfully uploaded patch level file"
+browser.file_field(:name => "_2_WAR_osbportlet_patch-level").set patchInfo
+puts "Assert that the local patch-info file is uploaded: PASS"
 
 # submit ticket
-puts "\n"
-puts "Attempting to submit ticket..."
 browser.button(:value => "Submit").fire_event :click
 
 # check if ticket was successfully created
 Watir::Wait.until { browser.element(:text => "Your request completed successfully.").exists? }
 puts "\n"
 if browser.text.include? "Your request completed successfully."
-	puts "Assert that the ticket was successfully submitted: PASS"
+	puts "Assert that the ticket is successfully submitted: PASS"
 else
 	puts "Assert that the ticket was successfully submitted: FAIL"
 end
 
-# assert that the status is incident reported
+# check if ticket status is incident reported
 puts "\n"
-if browser.div(:id => "_2_WAR_osbportlet_statusDisplay").inner_html == "Incident Reported"
-	puts "Assert that the status is Incident Reported: PASS"
+if browser.element(:id => "_2_WAR_osbportlet_statusDisplay").text.eql? "INCIDENT REPORTED"
+	puts "Assert that the ticket status is Incident Reported: PASS"
 else
-	puts "Assert that the status is Incident Reported: FAIL"
+	puts "Assert that the ticket status is Incident Reported: FAIL"
 end
 
-# assert that the resolution is N/A
+# check if ticket resolution is n/a
 puts "\n"
-if browser.div(:id => "_2_WAR_osbportlet_resolutionLabel").inner_html == "N/A"
-	puts "Assert that the resolution is N/A: PASS"
+if browser.element(:id => "_2_WAR_osbportlet_resolutionLabel").text.eql? "N/A"
+	puts "Assert that the ticket resolution is N/A: PASS"
 else
-	puts "Assert that the resolution is N/A: FAIL"
+	puts "Assert that the ticket resolution is N/A: FAIL"
 end
 
 # add comment
 puts "\n"
-puts "Attempting to add a comment with formatted text..."
 Watir::Wait.until { browser.link(:text => "Add Comment").exists? }
 browser.scroll.to browser.link(:text => "Add Comment")
 browser.link(:text => "Add Comment").click
@@ -246,21 +204,20 @@ codeText = "[code]this is a test[/code]"
 commentText = boldText + "\n" + boldText + "\n" + italicText + "\n" + underlineText + "\n" + quoteText + "\n" + codeText
 browser.textarea(:name, "_2_WAR_osbportlet_addCommentBody0").set(commentText)
 browser.button(:value => "Reply").click
-puts "Successfully added a comment with formatted text"
+puts "Assert that a comment with preformatted text is added: PASS"
 
-# save as draft
-Watir::Wait.until { browser.link(:text => "Add Comment").exists? }
+# add another comment and save as draft
 puts "\n"
-puts "Attempting to add another comment and save as a draft..."
+Watir::Wait.until { browser.link(:text => "Add Comment").exists? }
 browser.scroll.to browser.link(:text => "Add Comment")
 browser.link(:text => "Add Comment").click
 browser.textarea(:name, "_2_WAR_osbportlet_addCommentBody0").set("This is a draft")
 browser.button(:value => "Save as Draft").click
-puts "Successfully added another comment and saved as a draft"
+puts "Assert that another comment is added and saved as a draft: PASS"
 
-# add attachment
-Watir::Wait.until { browser.span(:text => "Edit").exists? }
+# edit the last comment and add attachment
 puts "\n"
+Watir::Wait.until { browser.span(:text => "Edit").exists? }
 browser.link(:text => "Edit").click
 unless File.exists? pictureAttachment
 	puts "Assert that the local attachment file exists: PASS"
@@ -268,18 +225,16 @@ unless File.exists? pictureAttachment
 	puts "\n"
 	abort("Invalid selection; aborted testing")
 end
-puts "Assert that the local attachment file exists: PASS"
+puts "Assert that the local image file exists: PASS"
 puts "\n"
-puts "Attempting to publish comment with  attachment..."
 browser.file_field.set pictureAttachment
 browser.scroll.to browser.button(:value => "Publish")
 browser.button(:value => "Publish").click
-puts "Successfully published comment with attachment"
+puts "Assert that the local image file is uploaded and the last comment is published: PASS"
 
 # close ticket
 puts "\n"
-puts "Attempting to close the ticket..."
-browser.scroll.to browser.element(:text => "Attachments:")
+browser.scroll.to browser.image(:title => "Preview")
 browser.button(:value => "Close Ticket").click
 browser.windows.last.use do
 	browser.select_list(:name => "_2_WAR_osbportlet_resolution").select_value("32001")
@@ -287,7 +242,6 @@ browser.windows.last.use do
 	browser.button(:value => "Close Ticket").click
 end
 Watir::Wait.until { browser.element(:text => "Your request completed successfully.").exists? }
-puts "\n"
 if browser.text.include? "Your request completed successfully."
 	puts "Assert that the ticket was successfully closed: PASS"
 else
@@ -296,18 +250,18 @@ end
 
 # assert that the status is closed
 puts "\n"
-if browser.div(:id => "_2_WAR_osbportlet_statusDisplay").inner_html == "Closed"
-	puts "Assert that the status is Closed: PASS"
+if browser.element(:id => "_2_WAR_osbportlet_statusDisplay").text.eql? "CLOSED"
+	puts "Assert that the ticket status is Closed: PASS"
 else
-	puts "Assert that the status is Closed: FAIL"
+	puts "Assert that the ticket status is Closed: FAIL"
 end
 
 # assert that the resolution is duplicate
 puts "\n"
-if browser.div(:id => "_2_WAR_osbportlet_resolutionLabel").inner_html == "Duplicate"
-	puts "Assert that the resolution is Duplicate: PASS"
+if browser.element(:id => "_2_WAR_osbportlet_resolutionLabel").text.eql? "DUPLICATE"
+	puts "Assert that the ticket resolution is Duplicate: PASS"
 else
-	puts "Assert that the resolution is Duplicate: FAIL"
+	puts "Assert that the ticket resolution is Duplicate: FAIL"
 end
 
 # assert that the reopen button is displayed
@@ -320,14 +274,12 @@ end
 
 # reopen the ticket
 puts "\n"
-puts "Attempting to reopen the ticket..."
-browser.scroll.to browser.element(:text => "Attachments:")
+browser.scroll.to browser.image(:title => "Preview")
 browser.button(:value => "Reopen").click
-puts "\n"
 if browser.alert.exists?
-	puts "Assert that a confirmation window is displayed: PASS"
+	puts "Assert that a confirmation window is displayed when trying to reopen the ticket: PASS"
 else
-	puts "Assert that a confirmation window is displayed: FAIL"
+	puts "Assert that a confirmation window is displayed when trying to reopen the ticket: FAIL"
 end
 browser.alert.ok
 Watir::Wait.until { browser.element(:text => "Your request completed successfully.").exists? }
@@ -340,7 +292,7 @@ end
 
 # assert that the status is reopened
 puts "\n"
-if browser.div(:id => "_2_WAR_osbportlet_statusDisplay").inner_html == "Reopened"
+if browser.element(:id => "_2_WAR_osbportlet_statusDisplay").text.eql? "REOPENED"
 	puts "Assert that the status is Reopened: PASS"
 else
 	puts "Assert that the status is Reopened: FAIL"
@@ -348,13 +300,14 @@ end
 
 # assert that the resolution is N/A
 puts "\n"
-if browser.div(:id => "_2_WAR_osbportlet_resolutionLabel").inner_html == "N/A"
+if browser.element(:id => "_2_WAR_osbportlet_resolutionLabel").text.eql? "N/A"
 	puts "Assert that the resolution is N/A: PASS"
 else
 	puts "Assert that the resolution is N/A: FAIL"
 end
 
 # click for permalink
+puts "\n"
 permalink = browser.element(:id => "_2_WAR_osbportlet_ticketPermalink").value
 puts "Permalink: " + permalink
 
@@ -366,7 +319,6 @@ puts "TEST SUCCESSFUL"
 puts "Total Time: " + totalTime.round.to_s + " seconds"
 
 # ask user to end and close test
-puts "\n"
 puts "Press ENTER to end and close the Customer P1 Support Automated Test"
 STDOUT.flush
 endTest = gets.chomp

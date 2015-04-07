@@ -9,7 +9,7 @@ portalExt = repo + "/resources/test-portal-ext.txt"
 patchInfo = repo + "/resources/test-patch-info.txt"
 pictureAttachment = repo + "/resources/test-image.png"
 resultsTokenStart = "Showing "
-resultsTokenEnd = " results."
+resultsTokenEnd = " result"
 ticketsTokenStart = "<div class=\"txt-h1 txt-b\"> "
 ticketsTokenEnd = " </div>"
 
