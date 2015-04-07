@@ -267,7 +267,7 @@ else
 end
 
 # reopen the ticket
-puts "\n"]
+puts "\n"
 browser.scroll.to browser.image(:title => "Preview")
 browser.button(:value => "Reopen").click
 if browser.alert.exists?
