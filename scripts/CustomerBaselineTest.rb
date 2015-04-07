@@ -172,3 +172,14 @@ puts "Successfully filled out the ticket details"
 
 # upload portal-ext
 puts "\n"
+unless File.exists? "../resources/test-portal-ext.txt"
+	puts "Assert that the local patch level file exists: FAIL"
+	browser.close
+	puts "\n"
+	abort("Invalid selection; aborted testing")
+end
+puts "Assert that the local patch level file exists: PASS"
+puts "\n"
+puts "Attempting to upload portal-ext file..."
+browser.file_field(:name => "_2_WAR_osbportlet_portal-ext").set "../resources/test-portal-ext.txt"
+puts "Successfully uploaded portal-ext file"
