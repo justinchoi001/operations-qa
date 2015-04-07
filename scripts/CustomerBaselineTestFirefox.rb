@@ -5,7 +5,7 @@ require "watir-scroll"
 
 # constants
 portalExt = "../resources/test-portal-ext.txt"
-patchLevel = "../resources/test-patch-info.txt"
+patchInfo = "../resources/test-patch-info.txt"
 pictureAttachment = "../resources/test-image.png"
 resultsTokenStart = "Showing "
 resultsTokenEnd = " results."
@@ -141,14 +141,58 @@ puts "Successfully filled out the ticket details"
 
 # upload portal-ext
 puts "\n"
-unless File.exists? "../resources/test-portal-ext.txt"
+unless File.exists? portalExt
 	puts "Assert that the local patch level file exists: FAIL"
 	browser.close
 	puts "\n"
-	abort("Invalid selection; aborted testing")
+	abort("File: " + portalExt + "does not exist; aborted testing")
 end
 puts "Assert that the local patch level file exists: PASS"
 puts "\n"
 puts "Attempting to upload portal-ext file..."
-browser.file_field(:name => "_2_WAR_osbportlet_portal-ext").set "../resources/test-portal-ext.txt"
+browser.file_field(:name => "_2_WAR_osbportlet_portal-ext").set portalExt
 puts "Successfully uploaded portal-ext file"
+
+# upload patch-info
+puts "\n"
+unless File.exists? patchInfo
+	puts "Assert that the local patch-info file exists: FAIL"
+	browser.close
+	puts "\n"
+	abort("File: " + patchInfo + "does not exist; aborted testing")
+end
+puts "Assert that the local patch-info file exists: PASS"
+puts "\n"
+puts "Attempting to upload patch-info file..."
+browser.file_field(:name => "_2_WAR_osbportlet_patch-level").set patchInfo
+puts "Successfully uploaded patch-info file"
+
+# submit ticket
+puts "\n"
+puts "Attempting to submit ticket..."
+browser.button(:value => "Submit").fire_event :click
+
+# check if ticket was successfully created
+Watir::Wait.until { browser.element(:text => "Your request completed successfully.").exists? }
+puts "\n"
+if browser.text.include? "Your request completed successfully."
+	puts "Assert that the ticket was successfully submitted: PASS"
+else
+	puts "Assert that the ticket was successfully submitted: FAIL"
+end
+
+# end message
+puts "\n"
+finishTime = Time.now
+totalTime = finishTime - startTime
+puts "TEST SUCCESSFUL"
+puts "Total Time: " + totalTime.round.to_s + " seconds"
+
+# ask user to end and close test
+puts "\n"
+puts "Press ENTER to end and close the Customer Baseline Automated Test"
+STDOUT.flush
+endTest = gets.chomp
+if beginTest == ""
+	browser.close
+end
