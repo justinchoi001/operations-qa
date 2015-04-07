@@ -4,18 +4,17 @@ require "watir-webdriver"
 require "watir-scroll"
 
 # constants
-portalExt = "../resources/test-portal-ext.txt"
-patchInfo = "../resources/test-patch-info.txt"
-pictureAttachment = "../resources/test-image.png"
+repo = File.expand_path("..", File.dirname(__FILE__))
+portalExt = repo + "/resources/test-portal-ext.txt"
+patchInfo = repo + "/resources/test-patch-info.txt"
+pictureAttachment = repo + "/resources/test-image.png"
 resultsTokenStart = "Showing "
 resultsTokenEnd = " results."
 ticketsTokenStart = "<div class=\"txt-h1 txt-b\"> "
 ticketsTokenEnd = " </div>"
 
 # open new browser to log into UA
-puts "Attempting to open Firefox..."
 browser = Watir::Browser.new :firefox
-puts "Successfully opened Firefox"
 
 # ask user to begin test
 puts "\n"
@@ -32,22 +31,19 @@ end
 startTime = Time.now
 
 # go to LESA home page
-puts "Attempting to navigate to LESA UAT..."
 browser.goto("https://www-uat.liferay.com/group/customer/support/-/support/ticket")
 
 # wait for page load
 Watir::Wait.until { browser.text.include? 'Please append ".broken" to your email address to login. (e.g. test@liferay.com.broken)' }
 
 # access login elements by element name
-puts "Attempting to log into LESA UAT..."
 browser.text_field(:name, "_58_login").set("margaret_wong@abacus.com.sg.broken")
 browser.text_field(:name, "_58_password").set("test")
 browser.button(:value, "Sign In").click
 
 # wait for page load
 Watir::Wait.until { browser.div(:text => "My Open Tickets").exists? }
-puts "Successfully logged into LESA UAT"
-puts "Successfully navigated to LESA UAT"
+puts "Assert that the user can log in successfully: PASS"
 
 # check if my open tickets count and results match
 myOpenTickets = browser.div(:text => "My Open Tickets")
@@ -93,35 +89,32 @@ end
 
 # click on the "+" symbol; want to click on "new ticket"
 puts "\n"
-puts "Creating a new ticket..."
 browser.span(:text => "+").fire_event :click
+puts "Assert that the New Ticket button works: PASS"
 
 # click on portal production
 puts "\n"
-puts "Attempting to select Portal Production..."
 Watir::Wait.until { browser.element(:text => "Portal Production").visible? }
 browser.element(:text => "Portal Production").click
-puts "Successfully selected Portal Production"
+puts "Assert that Portal Production is selected: PASS"
 
 # click on continue without adding
 puts "\n"
-puts "Attempting to select Continue Without Adding..."
 Watir::Wait.until { browser.button(:text => "Continue Without Adding", :index => 1).visible? }
 browser.button(:text => "Continue Without Adding", :index => 1).click
-puts "Successfully selected Continue Without Adding"
+puts "Assert that Continue Without Adding is selected: PASS"
 
 # click on confirm
 puts "\n"
-puts "Attempting to select Confirm..."
 Watir::Wait.until { browser.button(:text => "Confirm").visible? }
 browser.button(:text => "Confirm").click
-puts "Successfully selected Confirm"
+puts "Assert that Confirm is selected: PASS"
 
 # select document library component
 puts "\n"
-puts "Attempting to select Document Library component..."
+Watir::Wait.until { browser.select_list(:name => "_2_WAR_osbportlet_component").visible? }
 browser.select_list(:name => "_2_WAR_osbportlet_component").select_value("26004")
-puts "Successfully selected Document Library component"
+puts "Assert that the Document Library compontent is selected: PASS"
 
 # fill out ticket details
 puts "\n"
@@ -137,21 +130,20 @@ browser.select_list(:name => "_2_WAR_osbportlet_envDB").select_value("28019")
 browser.select_list(:name => "_2_WAR_osbportlet_envOS").select_value("30029")
 browser.select_list(:name => "_2_WAR_osbportlet_envJVM").select_value("29002")
 browser.select_list(:name => "_2_WAR_osbportlet_envBrowser").select_value("37001")
-puts "Successfully filled out the ticket details"
+puts "Assert that the ticket details are completed: PASS"
 
 # upload portal-ext
 puts "\n"
 unless File.exists? portalExt
-	puts "Assert that the local patch level file exists: FAIL"
+	puts "Assert that the local portal-ext file exists: FAIL"
 	browser.close
 	puts "\n"
 	abort("File: " + portalExt + "does not exist; aborted testing")
 end
-puts "Assert that the local patch level file exists: PASS"
+puts "Assert that the local portal-ext file exists: PASS"
 puts "\n"
-puts "Attempting to upload portal-ext file..."
 browser.file_field(:name => "_2_WAR_osbportlet_portal-ext").set portalExt
-puts "Successfully uploaded portal-ext file"
+puts "Assert that the local portal-ext file is uploaded: PASS"
 
 # upload patch-info
 puts "\n"
@@ -163,13 +155,11 @@ unless File.exists? patchInfo
 end
 puts "Assert that the local patch-info file exists: PASS"
 puts "\n"
-puts "Attempting to upload patch-info file..."
 browser.file_field(:name => "_2_WAR_osbportlet_patch-level").set patchInfo
-puts "Successfully uploaded patch-info file"
+puts "Assert that the local patch-info file is uploaded: PASS"
 
 # submit ticket
 puts "\n"
-puts "Attempting to submit ticket..."
 browser.button(:value => "Submit").fire_event :click
 
 # check if ticket was successfully created
