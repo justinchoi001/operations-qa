@@ -19,7 +19,7 @@ browser = Watir::Browser.new :firefox
 
 # ask user to begin test
 puts "\n"
-puts "Press ENTER to begin the Customer Baseline Automated Test"
+puts "Press ENTER to begin the CSE Baseline Automated Test"
 STDOUT.flush
 beginTest = gets.chomp
 unless beginTest == ""
@@ -86,4 +86,19 @@ if feedbackWaitingCount == searchResultsCount
 	puts "Assert that the Feedback Waiting count [" + feedbackWaitingCount + "] matches number of search results [" + searchResultsCount + "]: PASS"
 else
 	puts "Assert that the Feedback Waiting count [" + feedbackWaitingCount + "] matches number of search results [" + searchResultsCount + "]: FAIL"
+end
+
+# end message
+puts "\n"
+finishTime = Time.now
+totalTime = finishTime - startTime
+puts "TEST SUCCESSFUL"
+puts "Total Time: " + totalTime.round.to_s + " seconds"
+
+# ask user to end and close test
+puts "Press ENTER to end and close the CSE Baseline Automated Test"
+STDOUT.flush
+endTest = gets.chomp
+if beginTest == ""
+	browser.close
 end
