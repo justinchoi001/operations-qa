@@ -106,8 +106,8 @@ puts "Assert that Portal Production is selected: PASS"
 
 # click on continue without adding
 puts "\n"
-Watir::Wait.until { browser.button(:text => "Continue Without Adding", :index => 1).visible? }
-browser.button(:text => "Continue Without Adding", :index => 1).click
+Watir::Wait.until { browser.button(:text => "Continue Without Adding", :index => 0).visible? }
+browser.button(:text => "Continue Without Adding", :index => 0).click
 puts "Assert that Continue Without Adding is selected: PASS"
 
 # click on confirm
