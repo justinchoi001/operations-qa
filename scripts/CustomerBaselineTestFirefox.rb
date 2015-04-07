@@ -118,7 +118,6 @@ puts "Assert that the Document Library compontent is selected: PASS"
 
 # fill out ticket details
 puts "\n"
-puts "Attempting to fill out the ticket details..."
 browser.text_field(:name, "_2_WAR_osbportlet_subject").set("Customer Basic Test")
 browser.select_list(:name => "_2_WAR_osbportlet_systemStatus").select_value("1")
 browser.textarea(:name, "_2_WAR_osbportlet_description").set("This is a customer test")
@@ -179,7 +178,6 @@ puts "TEST SUCCESSFUL"
 puts "Total Time: " + totalTime.round.to_s + " seconds"
 
 # ask user to end and close test
-puts "\n"
 puts "Press ENTER to end and close the Customer Baseline Automated Test"
 STDOUT.flush
 endTest = gets.chomp
