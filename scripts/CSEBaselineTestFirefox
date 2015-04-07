@@ -1,0 +1,4 @@
+# load watir library
+require "irb/completion"
+require "watir-webdriver"
+require "watir-scroll"
