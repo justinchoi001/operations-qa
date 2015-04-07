@@ -131,7 +131,7 @@ browser.span(:text => "+").fire_event :click
 # click on portal production
 puts "\n"
 puts "Attempting to select Portal Production..."
-Watir::Wait.until { browser.link(:text => "Portal Production").visible? }
+Watir::Wait.until { browser.element(:text => "Portal Production").visible? }
 browser.element(:text => "Portal Production").click
 puts "Successfully selected Portal Production"
 
