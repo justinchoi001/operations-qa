@@ -158,7 +158,6 @@ browser.file_field(:name => "_2_WAR_osbportlet_patch-level").set patchInfo
 puts "Assert that the local patch-info file is uploaded: PASS"
 
 # submit ticket
-puts "\n"
 browser.button(:value => "Submit").fire_event :click
 
 # check if ticket was successfully created
