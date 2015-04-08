@@ -167,133 +167,87 @@ puts "Assert that the local patch-info file is uploaded: PASS"
 browser.button(:value => "Submit").fire_event :click
 
 # check if ticket was successfully created
-Watir::Wait.until { browser.element(:text => "Your request completed successfully.").exists? }
 puts "\n"
+Watir::Wait.until { browser.element(:text => "Your request completed successfully.").exists? }
 if browser.text.include? "Your request completed successfully."
 	puts "Assert that the ticket is successfully submitted: PASS"
 else
 	puts "Assert that the ticket was successfully submitted: FAIL"
 end
 
-# check if ticket status is incident reported
+# check if public tab is displayed
 puts "\n"
-if browser.element(:id => "_2_WAR_osbportlet_statusDisplay").text.eql? "INCIDENT REPORTED"
-	puts "Assert that the ticket status is Incident Reported: PASS"
+Watir::Wait.until { browser.link(:class => "aui-tab-label").exists? }
+if browser.link(:class => "aui-tab-label", :index => 0).text.include? "Public"
+	puts "Assert that the Public tab is displayed: PASS"
 else
-	puts "Assert that the ticket status is Incident Reported: FAIL"
+	puts "Assert that the Public tab is displayed: FAIL"
 end
 
-# add comment
+# check if workers tab is displayed
+puts "\n"
+Watir::Wait.until { browser.link(:class => "aui-tab-label").exists? }
+if browser.link(:class => "aui-tab-label", :index => 1).text.include? "Workers"
+	puts "Assert that the Workers tab is displayed: PASS"
+else
+	puts "Assert that the Workers tab is displayed: FAIL"
+end
+
+# check if liferay tab is displayed
+puts "\n"
+Watir::Wait.until { browser.link(:class => "aui-tab-label").exists? }
+if browser.link(:class => "aui-tab-label", :index => 2).text.include? "Liferay"
+	puts "Assert that the Liferay tab is displayed: PASS"
+else
+	puts "Assert that the Liferay tab is displayed: FAIL"
+end
+
+# check if history tab is displayed
+puts "\n"
+Watir::Wait.until { browser.link(:class => "aui-tab-label").exists? }
+if browser.link(:class => "aui-tab-label", :index => 4).text.include? "History"
+	puts "Assert that the History tab is displayed: PASS"
+else
+	puts "Assert that the History tab is displayed: FAIL"
+end
+
+# check if solutions tab is displayed
+puts "\n"
+Watir::Wait.until { browser.link(:class => "aui-tab-label").exists? }
+if browser.link(:class => "aui-tab-label", :index => 5).text.include? "Solutions"
+	puts "Assert that the Solutions tab is displayed: PASS"
+else
+	puts "Assert that the Solutions tab is displayed: FAIL"
+end
+
+# add the first comment
 puts "\n"
 Watir::Wait.until { browser.link(:text => "Add Comment").exists? }
 browser.scroll.to browser.link(:text => "Add Comment")
 browser.link(:text => "Add Comment").click
-boldText = "[b]this is a test[/b]"
-italicText = "[i]this is a test[/i]"
-underlineText = "[u]this is a test[/u]"
-quoteText = "[quote]this is a test[/quote]"
-codeText = "[code]this is a test[/code]"
-commentText = boldText + "\n" + boldText + "\n" + italicText + "\n" + underlineText + "\n" + quoteText + "\n" + codeText
-browser.textarea(:name, "_2_WAR_osbportlet_addCommentBody0").set(commentText)
+browser.textarea(:name, "_2_WAR_osbportlet_addCommentBody0").set("This is the first comment")
 browser.button(:value => "Reply").click
-puts "Assert that a comment with preformatted text is added: PASS"
-
-# add another comment and save as draft
-puts "\n"
-Watir::Wait.until { browser.link(:text => "Add Comment").exists? }
-browser.scroll.to browser.link(:text => "Add Comment")
-browser.link(:text => "Add Comment").click
-browser.textarea(:name, "_2_WAR_osbportlet_addCommentBody0").set("This is a draft")
-browser.button(:value => "Save as Draft").click
-puts "Assert that another comment is added and saved as a draft: PASS"
-
-# edit the last comment and add attachment
-puts "\n"
-Watir::Wait.until { browser.span(:text => "Edit", :index => 1).exists? }
-browser.link(:text => "Edit", :index => 1).click
-unless File.exists? pictureAttachment
-	puts "Assert that the local attachment file exists: PASS"
-	browser.close
-	puts "\n"
-	abort("Invalid selection; aborted testing")
-end
-puts "Assert that the local image file exists: PASS"
-puts "\n"
-browser.file_field.set pictureAttachment
-browser.scroll.to browser.button(:value => "Publish")
-browser.button(:value => "Publish").click
-puts "Assert that the local image file is uploaded and the last comment is published: PASS"
-
-# close ticket
-puts "\n"
-browser.scroll.to browser.image(:title => "Preview")
-browser.button(:value => "Close Ticket").click
-browser.windows.last.use do
-	browser.select_list(:name => "_2_WAR_osbportlet_resolution").select_value("32001")
-	browser.textarea(:name, "_2_WAR_osbportlet_addCommentBody").set("This is a duplicate")
-	browser.button(:value => "Close Ticket").click
-end
+browser.scroll.to :top
 Watir::Wait.until { browser.element(:text => "Your request completed successfully.").exists? }
 if browser.text.include? "Your request completed successfully."
-	puts "Assert that the ticket was successfully closed: PASS"
+	puts "Assert that the first comment was published successfully: PASS"
 else
-	puts "Assert that the ticket was successfully closed: FAIL"
+	puts "Assert that the first comment was published successfully: FAIL"
 end
 
-# assert that the status is closed
-puts "\n"
-if browser.element(:id => "_2_WAR_osbportlet_statusDisplay").text.eql? "CLOSED"
-	puts "Assert that the ticket status is Closed: PASS"
-else
-	puts "Assert that the ticket status is Closed: FAIL"
-end
-
-# assert that the resolution is duplicate
-puts "\n"
-if browser.element(:id => "_2_WAR_osbportlet_resolutionLabel").text.eql? "DUPLICATE"
-	puts "Assert that the ticket resolution is Duplicate: PASS"
-else
-	puts "Assert that the ticket resolution is Duplicate: FAIL"
-end
-
-# assert that the reopen button is displayed
-puts "\n"
-if browser.button(:value => "Reopen").exists? && browser.button(:value => "Reopen").visible?
-	puts "Assert that the Reopen button is displayed: PASS"
-else
-	puts "Assert that the Reopen button is displayed: FAIL"
-end
-
-# reopen the ticket
-puts "\n"
-browser.scroll.to browser.image(:title => "Preview")
-browser.button(:value => "Reopen").click
-if browser.alert.exists?
-	puts "Assert that a confirmation window is displayed when trying to reopen the ticket: PASS"
-else
-	puts "Assert that a confirmation window is displayed when trying to reopen the ticket: FAIL"
-end
-browser.alert.ok
-Watir::Wait.until { browser.element(:text => "Your request completed successfully.").exists? }
-puts "\n"
-if browser.text.include? "Your request completed successfully."
-	puts "Assert that the ticket was successfully reopened: PASS"
-else
-	puts "Assert that the ticket was successfully reopened: FAIL"
-end
-
-# assert that the status is reopened
-puts "\n"
-if browser.element(:id => "_2_WAR_osbportlet_statusDisplay").text.eql? "REOPENED"
-	puts "Assert that the status is Reopened: PASS"
-else
-	puts "Assert that the status is Reopened: FAIL"
-end
-
-# click for permalink
-puts "\n"
-permalink = browser.element(:id => "_2_WAR_osbportlet_ticketPermalink").value
-puts "Permalink: " + permalink
+# # add the second comment
+# puts "\n"
+# browser.scroll.to browser.link(:text => "Add Comment")
+# browser.link(:text => "Add Comment").click
+# browser.textarea(:name, "_2_WAR_osbportlet_addCommentBody0").set("This is the second comment")
+# browser.button(:value => "Save as Draft").click
+# browser.scroll.to :top
+# Watir::Wait.until { browser.element(:text => "Your request completed successfully.").exists? }
+# if browser.text.include? "Your request completed successfully."
+# 	puts "Assert that the first comment was published successfully: PASS"
+# else
+# 	puts "Assert that the first comment was published successfully: FAIL"
+# end
 
 # end message
 puts "\n"
