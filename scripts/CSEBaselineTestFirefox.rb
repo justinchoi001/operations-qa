@@ -1,4 +1,3 @@
-
 # load watir library
 require "irb/completion"
 require "watir-webdriver"
@@ -75,17 +74,17 @@ else
 end
 
 # check if in progress count and results match
-feedbackWaiting = browser.div(:text => "Feedback Waiting")
-feedbackWaiting.fire_event :click
+inProgress = browser.div(:text => "In Progress")
+inProgress.fire_event :click
 searchResultsHTML = browser.div(:class => "search-results").inner_html
 searchResultsCount = searchResultsHTML[/#{resultsTokenStart}(.*?)#{resultsTokenEnd}/m, 1]
-feedbackWaitingHTML = feedbackWaiting.parent.inner_html
-feedbackWaitingCount = feedbackWaitingHTML[/#{ticketsTokenStart}(.*?)#{ticketsTokenEnd}/m, 1]
+inProgressHTML = inProgress.parent.inner_html
+inProgressCount = inProgressHTML[/#{ticketsTokenStart}(.*?)#{ticketsTokenEnd}/m, 1]
 puts "\n"
-if feedbackWaitingCount == searchResultsCount
-	puts "Assert that the Feedback Waiting count [" + feedbackWaitingCount + "] matches number of search results [" + searchResultsCount + "]: PASS"
+if inProgressCount == searchResultsCount
+	puts "Assert that the In Progress count [" + inProgressCount + "] matches number of search results [" + searchResultsCount + "]: PASS"
 else
-	puts "Assert that the Feedback Waiting count [" + feedbackWaitingCount + "] matches number of search results [" + searchResultsCount + "]: FAIL"
+	puts "Assert that the In Progress count [" + inProgressCount + "] matches number of search results [" + searchResultsCount + "]: FAIL"
 end
 
 # end message

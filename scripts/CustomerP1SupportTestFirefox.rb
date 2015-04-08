@@ -73,7 +73,7 @@ else
 	puts "Assert that the Need Response count [" + needResponseCount + "] matches number of search results [" + searchResultsCount + "]: FAIL"
 end
 
-# check if in progress count and results match
+# check if feedback waiting count and results match
 feedbackWaiting = browser.div(:text => "Feedback Waiting")
 feedbackWaiting.fire_event :click
 searchResultsHTML = browser.div(:class => "search-results").inner_html
