@@ -48,6 +48,7 @@ puts "Assert that the user can access LESA: PASS"
 # check if my open tickets count and results match
 myOpenTickets = browser.div(:text => "My Open Tickets")
 myOpenTickets.fire_event :click
+Watir::Wait.until { browser.div(:class => "fb-like fb_iframe_widget").present? }			# use this to wait for full page load
 searchResultsHTML = browser.div(:class => "search-results").inner_html
 searchResultsCount = searchResultsHTML[/#{resultsTokenStart}(.*?)#{resultsTokenEnd}/m, 1]
 myOpenTicketsHTML = myOpenTickets.parent.inner_html
@@ -62,6 +63,7 @@ end
 # check if need response count and results match
 needResponse = browser.div(:text => "Need Response")
 needResponse.fire_event :click
+Watir::Wait.until { browser.div(:class => "fb-like fb_iframe_widget").present? }			# use this to wait for full page load
 searchResultsHTML = browser.div(:class => "search-results").inner_html
 searchResultsCount = searchResultsHTML[/#{resultsTokenStart}(.*?)#{resultsTokenEnd}/m, 1]
 needResponseHTML = needResponse.parent.inner_html
@@ -76,6 +78,7 @@ end
 # check if feedback waiting count and results match
 feedbackWaiting = browser.div(:text => "Feedback Waiting")
 feedbackWaiting.fire_event :click
+Watir::Wait.until { browser.div(:class => "fb-like fb_iframe_widget").present? }			# use this to wait for full page load
 searchResultsHTML = browser.div(:class => "search-results").inner_html
 searchResultsCount = searchResultsHTML[/#{resultsTokenStart}(.*?)#{resultsTokenEnd}/m, 1]
 feedbackWaitingHTML = feedbackWaiting.parent.inner_html
