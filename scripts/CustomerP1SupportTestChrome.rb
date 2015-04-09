@@ -98,31 +98,31 @@ puts "Assert that the New Ticket button works: PASS"
 
 # select california casualty as account
 puts "\n"
-Watir::Wait.until { browser.select_list(:name => "_2_WAR_osbportlet_accountEntryId").exists? }
+Watir::Wait.until { browser.select_list(:name => "_2_WAR_osbportlet_accountEntryId").present? }
 browser.select_list(:name => "_2_WAR_osbportlet_accountEntryId").select_value("8153767")
 puts "Assert that California Casualty is selected: PASS"
 
 # click on portal production
 puts "\n"
-Watir::Wait.until { browser.element(:text => "Portal Production").visible? }
+Watir::Wait.until { browser.element(:text => "Portal Production").present? }
 browser.element(:text => "Portal Production").click
 puts "Assert that Portal Production is selected: PASS"
 
 # click on continue without adding
 puts "\n"
-Watir::Wait.until { browser.button(:text => "Continue Without Adding", :index => 0).visible? }
+Watir::Wait.until { browser.button(:text => "Continue Without Adding", :index => 0).present? }
 browser.button(:text => "Continue Without Adding", :index => 0).click
 puts "Assert that Continue Without Adding is selected: PASS"
 
 # click on confirm
 puts "\n"
-Watir::Wait.until { browser.button(:text => "Confirm").visible? }
+Watir::Wait.until { browser.button(:text => "Confirm").present? }
 browser.button(:text => "Confirm").click
 puts "Assert that Confirm is selected: PASS"
 
 # select document library component
 puts "\n"
-Watir::Wait.until { browser.select_list(:name => "_2_WAR_osbportlet_component").visible? }
+Watir::Wait.until { browser.select_list(:name => "_2_WAR_osbportlet_component").present? }
 browser.select_list(:name => "_2_WAR_osbportlet_component").select_value("26004")
 puts "Assert that the Document Library compontent is selected: PASS"
 
@@ -197,7 +197,7 @@ end
 
 # add comment
 puts "\n"
-Watir::Wait.until { browser.link(:text => "Add Comment").exists? }
+Watir::Wait.until { browser.link(:text => "Add Comment").present? }
 browser.scroll.to browser.link(:text => "Add Comment")
 browser.link(:text => "Add Comment").click
 boldText = "[b]this is a test[/b]"
@@ -212,7 +212,7 @@ puts "Assert that a comment with preformatted text is added: PASS"
 
 # add another comment and save as draft
 puts "\n"
-Watir::Wait.until { browser.link(:text => "Add Comment").exists? }
+Watir::Wait.until { browser.link(:text => "Add Comment").present? }
 browser.scroll.to browser.link(:text => "Add Comment")
 browser.link(:text => "Add Comment").click
 browser.textarea(:name, "_2_WAR_osbportlet_addCommentBody0").set("This is a draft")
@@ -221,7 +221,7 @@ puts "Assert that another comment is added and saved as a draft: PASS"
 
 # edit the last comment and add attachment
 puts "\n"
-Watir::Wait.until { browser.span(:text => "Edit").exists? }
+Watir::Wait.until { browser.span(:text => "Edit").present? }
 browser.link(:text => "Edit").click
 unless File.exists? pictureAttachment
 	puts "Assert that the local attachment file exists: PASS"
@@ -270,7 +270,7 @@ end
 
 # assert that the reopen button is displayed
 puts "\n"
-if browser.button(:value => "Reopen").exists? && browser.button(:value => "Reopen").visible?
+if browser.button(:value => "Reopen").present?
 	puts "Assert that the Reopen button is displayed: PASS"
 else
 	puts "Assert that the Reopen button is displayed: FAIL"
